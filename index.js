@@ -1,4 +1,15 @@
 const http = require('http');
+const host = 'http://localhost';
+const port = 3333;
+const stats = require('./ramUsage');
 
-http.createServer().listen(33), () => console.log('Server is running');
+http.createServer((req, res) =>{
+    let url = req.url;
 
+    if (url === '/stats') {
+      res.end(JSON.stringify(stats, null, 2))  
+    } else {
+        res.end('<h1>Seja Bem Vindo</h1>')
+    }
+})
+.listen(port, () => console.log(`Server is running in ${host}:${port}`));
